@@ -1,4 +1,5 @@
 import {EventDispatcher, ValueDispatcher} from '../events';
+import {getLayout} from '../layouts';
 import type {Scene, Sound} from '../scenes';
 import {ReadOnlyTimeEvents} from '../scenes/timeEvents';
 import {clampRemap} from '../tweening';
@@ -156,9 +157,11 @@ export class Renderer {
       await this.reloadScenes(settings);
       await this.playback.reset();
       await this.playback.seek(frame);
+      const overlay = this.getLayoutOverlay(settings);
       await this.stage.render(
         this.playback.currentScene!,
         this.playback.previousScene,
+        overlay,
       );
 
       if (import.meta.hot) {
@@ -224,7 +227,7 @@ export class Renderer {
     let result = RendererResult.Success;
     try {
       this.estimator.reset(1 / (to - from));
-      await this.exportFrame(signal);
+      await this.exportFrame(signal, settings);
       this.estimator.update(clampRemap(from, to, 0, 1, this.playback.frame));
 
       if (signal.aborted) {
@@ -233,7 +236,7 @@ export class Renderer {
         let finished = false;
         while (!finished) {
           await this.playback.progress();
-          await this.exportFrame(signal);
+          await this.exportFrame(signal, settings);
           this.estimator.update(
             clampRemap(from, to, 0, 1, this.playback.frame),
           );
@@ -282,11 +285,34 @@ export class Renderer {
     return sounds;
   }
 
-  private async exportFrame(signal: AbortSignal) {
+  private getLayoutOverlay(
+    settings: RendererSettings,
+  ): ((ctx: CanvasRenderingContext2D) => void) | undefined {
+    const layoutId = this.project.meta.shared.layout.get();
+    const includeOverlay =
+      this.project.meta.rendering.includeLayoutOverlay.get();
+
+    if (layoutId === 'none' || !includeOverlay) {
+      return undefined;
+    }
+
+    const layout = getLayout(layoutId);
+    if (!layout) {
+      return undefined;
+    }
+
+    return (ctx: CanvasRenderingContext2D) => {
+      layout.drawOverlay(ctx, settings.size);
+    };
+  }
+
+  private async exportFrame(signal: AbortSignal, settings?: RendererSettings) {
     this.frame.current = this.playback.frame;
+    const overlay = settings ? this.getLayoutOverlay(settings) : undefined;
     await this.stage.render(
       this.playback.currentScene!,
       this.playback.previousScene,
+      overlay,
     );
 
     const sceneFrame =

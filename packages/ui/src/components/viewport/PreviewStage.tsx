@@ -1,19 +1,59 @@
-import {Stage} from '@motion-canvas/core';
+import {Stage, getLayout} from '@motion-canvas/core';
 import {JSX} from 'preact';
-import {useEffect, useState} from 'preact/hooks';
+import {useEffect, useMemo, useState} from 'preact/hooks';
 import {useApplication} from '../../contexts';
 import {
   usePreviewSettings,
   useSharedSettings,
   useSubscribable,
+  useSubscribableValue,
 } from '../../hooks';
 import {StageView} from './StageView';
 
 export function PreviewStage(props: JSX.HTMLAttributes<HTMLDivElement>) {
   const [stage] = useState(() => new Stage());
-  const {player} = useApplication();
+  const {player, meta} = useApplication();
   const {size, background} = useSharedSettings();
   const {resolutionScale} = usePreviewSettings();
+
+  const layoutId = useSubscribableValue(meta.shared.layout.onChanged);
+  const showOverlay = useSubscribableValue(
+    meta.preview.showLayoutOverlay.onChanged,
+  );
+
+  // Auto-update resolution when layout changes
+  useEffect(() => {
+    if (layoutId !== 'none') {
+      const layout = getLayout(layoutId);
+      if (layout && layout.defaultResolution) {
+        const currentSize = meta.shared.size.get();
+        const defaultSize = layout.defaultResolution;
+        // Only update if resolution doesn't match layout default
+        if (
+          currentSize.x !== defaultSize.x ||
+          currentSize.y !== defaultSize.y
+        ) {
+          meta.shared.size.set(defaultSize);
+        }
+      }
+    }
+  }, [layoutId, meta.shared.size]);
+
+  // Create overlay function for preview
+  const overlayFunction = useMemo(() => {
+    if (layoutId === 'none' || !showOverlay) {
+      return undefined;
+    }
+
+    const layout = getLayout(layoutId);
+    if (!layout) {
+      return undefined;
+    }
+
+    return (ctx: CanvasRenderingContext2D) => {
+      layout.drawOverlay(ctx, size);
+    };
+  }, [layoutId, showOverlay, size]);
 
   useSubscribable(
     player.onRender,
@@ -21,9 +61,10 @@ export function PreviewStage(props: JSX.HTMLAttributes<HTMLDivElement>) {
       await stage.render(
         player.playback.currentScene,
         player.playback.previousScene,
+        overlayFunction,
       );
     },
-    [],
+    [overlayFunction],
   );
 
   useEffect(() => {

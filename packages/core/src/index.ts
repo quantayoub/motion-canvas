@@ -5,6 +5,7 @@ export * from './app';
 export * from './decorators';
 export * from './events';
 export * from './flow';
+export * from './layouts';
 export * from './media';
 export * from './plugin';
 export {default as DefaultPlugin} from './plugin/DefaultPlugin';

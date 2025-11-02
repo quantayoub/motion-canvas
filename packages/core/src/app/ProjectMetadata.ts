@@ -1,4 +1,6 @@
+import {getAllLayouts} from '../layouts';
 import {
+  BoolMetaField,
   ColorMetaField,
   EnumMetaField,
   ExporterMetaField,
@@ -9,10 +11,19 @@ import {
   Vector2MetaField,
 } from '../meta';
 import {CanvasColorSpace, Color, Vector2} from '../types';
-import {ColorSpaces, FrameRates, ResolutionTemplates, Scales} from './presets';
 import type {Project} from './Project';
+import {ColorSpaces, FrameRates, ResolutionTemplates, Scales} from './presets';
 
 function createProjectMetadata(project: Project) {
+  const layouts = getAllLayouts();
+  const layoutOptions = [
+    {value: 'none', text: 'None'},
+    ...layouts.map(layout => ({
+      value: layout.id,
+      text: layout.name,
+    })),
+  ];
+
   const meta = {
     version: new MetaField('version', 1),
     shared: new ObjectMetaField('General', {
@@ -22,6 +33,9 @@ function createProjectMetadata(project: Project) {
         'resolution',
         new Vector2(1920, 1080),
       ).setPresets(ResolutionTemplates.value),
+      layout: new EnumMetaField('layout', layoutOptions, 'none').describe(
+        'Platform layout template (sets resolution and safe zones)',
+      ),
       audioOffset: new NumberMetaField('audio offset', 0)
         .setPrecision(4)
         .setStep(0.1),
@@ -31,6 +45,10 @@ function createProjectMetadata(project: Project) {
         .setPresets(FrameRates)
         .setRange(1),
       resolutionScale: new EnumMetaField('scale', Scales, 1),
+      showLayoutOverlay: new BoolMetaField(
+        'show layout overlay',
+        false,
+      ).describe('Display platform UI overlay in preview'),
     }),
     rendering: new ObjectMetaField('Rendering', {
       fps: new NumberMetaField('frame rate', 60)
@@ -39,6 +57,10 @@ function createProjectMetadata(project: Project) {
       resolutionScale: new EnumMetaField('scale', Scales, 1),
       colorSpace: new EnumMetaField('color space', ColorSpaces),
       exporter: new ExporterMetaField('exporter', project),
+      includeLayoutOverlay: new BoolMetaField(
+        'include layout overlay',
+        false,
+      ).describe('Include platform UI overlay in final render'),
     }),
   };
 

@@ -78,7 +78,11 @@ export class Stage {
         : (background?.serialize() ?? null);
   }
 
-  public async render(currentScene: Scene, previousScene: Scene | null) {
+  public async render(
+    currentScene: Scene,
+    previousScene: Scene | null,
+    overlay?: (ctx: CanvasRenderingContext2D) => void,
+  ) {
     const previousOnTop = previousScene
       ? unwrap(currentScene.previousOnTop)
       : false;
@@ -104,6 +108,11 @@ export class Stage {
     this.context.drawImage(this.currentBuffer, 0, 0);
     if (previousOnTop) {
       this.context.drawImage(this.previousBuffer, 0, 0);
+    }
+
+    // Draw overlay if provided
+    if (overlay) {
+      overlay(this.context);
     }
   }
 
