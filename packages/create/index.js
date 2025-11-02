@@ -129,7 +129,9 @@ const PLUGINS = {
       ],
       warn: 'This option is always included.',
       onRender() {
-        this.value[0].selected = true;
+        if (this.choices) {
+          this.choices[0].checked = true;
+        }
       },
       validate: value => {
         if (!Array.isArray(value)) {

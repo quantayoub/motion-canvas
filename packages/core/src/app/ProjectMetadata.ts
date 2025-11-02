@@ -9,7 +9,7 @@ import {
   Vector2MetaField,
 } from '../meta';
 import {CanvasColorSpace, Color, Vector2} from '../types';
-import {ColorSpaces, FrameRates, Scales} from './presets';
+import {ColorSpaces, FrameRates, ResolutionTemplates, Scales} from './presets';
 import type {Project} from './Project';
 
 function createProjectMetadata(project: Project) {
@@ -18,7 +18,10 @@ function createProjectMetadata(project: Project) {
     shared: new ObjectMetaField('General', {
       background: new ColorMetaField('background', null),
       range: new RangeMetaField('range', [0, Infinity]),
-      size: new Vector2MetaField('resolution', new Vector2(1920, 1080)),
+      size: new Vector2MetaField(
+        'resolution',
+        new Vector2(1920, 1080),
+      ).setPresets(ResolutionTemplates.value),
       audioOffset: new NumberMetaField('audio offset', 0)
         .setPrecision(4)
         .setStep(0.1),
