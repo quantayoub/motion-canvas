@@ -16,7 +16,7 @@
   "preview": {
     "fps": 60,
     "resolutionScale": 1,
-    "showLayoutOverlay": false
+    "showLayoutOverlay": true
   },
   "rendering": {
     "fps": 30,

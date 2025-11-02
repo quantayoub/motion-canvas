@@ -52,6 +52,8 @@ export class FFmpegExporterServer {
   private readonly stream: ImageStream;
   private readonly command: ffmpeg.FfmpegCommand;
   private readonly promise: Promise<void>;
+  private pendingFrames = 0;
+  private readonly pendingFramesResolvers: Array<() => void> = [];
 
   public constructor(
     settings: FFmpegExporterSettings,
@@ -192,10 +194,27 @@ export class FFmpegExporterServer {
   }
 
   public async handleFrame(req: Readable) {
-    await this.stream.pushImage(req);
+    this.pendingFrames++;
+    try {
+      await this.stream.pushImage(req);
+    } finally {
+      this.pendingFrames--;
+      // Notify any waiting end() calls
+      if (this.pendingFrames === 0) {
+        const resolvers = [...this.pendingFramesResolvers];
+        this.pendingFramesResolvers.length = 0;
+        resolvers.forEach(resolve => resolve());
+      }
+    }
   }
 
   public async end(result: RendererResult) {
+    // Wait for all pending frame processing to complete before closing the stream
+    if (this.pendingFrames > 0) {
+      await new Promise<void>(resolve => {
+        this.pendingFramesResolvers.push(resolve);
+      });
+    }
     this.stream.pushImage(null);
     if (result === 1) {
       try {
