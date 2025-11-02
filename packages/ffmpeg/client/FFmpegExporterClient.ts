@@ -132,8 +132,8 @@ export class FFmpegExporterClient implements Exporter {
   }
 
   public async stop(result: RendererResult): Promise<void> {
-    // Wait for ALL frames to complete, not just below the limit
-    // This ensures no frames are still being sent when we call end()
+    // Wait for all frames to be sent to the server before ending.
+    // The server will then wait for all frames to be processed before closing the stream.
     while (this.concurrentFrames > 0) {
       await new Promise(resolve => setTimeout(resolve, EXPORT_RETRY_DELAY));
     }
