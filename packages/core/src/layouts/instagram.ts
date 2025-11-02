@@ -53,116 +53,172 @@ function createInstagramLayoutConfig(): LayoutConfig {
         ctx.save();
         ctx.scale(scaleX, scaleY);
 
-        // Semi-transparent overlay for UI areas
         ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
         ctx.fillRect(0, 0, width, topMargin);
         ctx.fillRect(0, height - bottomMargin, width, bottomMargin);
 
-        // TOP BAR - Navigation and icons
         const topBarY = 80;
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+        const plusIconSize = 60;
+        const plusIconX = 70;
+        const plusIconY = topBarY;
+        const plusStrokeWidth = 6;
+
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.95)';
-        ctx.lineWidth = 3;
+        ctx.lineWidth = plusStrokeWidth;
+        ctx.lineCap = 'round';
 
-        // Top left - Camera/Add icon
+        const plusIconCenterX = plusIconX;
+        const plusIconCenterY = plusIconY;
+        const crossLength = plusIconSize * 0.4;
+
         ctx.beginPath();
-        ctx.arc(70, topBarY, 28, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.arc(70, topBarY, 18, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.8)';
-        ctx.lineWidth = 3;
-        ctx.beginPath();
-        ctx.moveTo(70, topBarY - 9);
-        ctx.lineTo(70, topBarY + 9);
-        ctx.moveTo(70 - 9, topBarY);
-        ctx.lineTo(70 + 9, topBarY);
+        ctx.moveTo(plusIconCenterX, plusIconCenterY - crossLength);
+        ctx.lineTo(plusIconCenterX, plusIconCenterY + crossLength);
+        ctx.moveTo(plusIconCenterX - crossLength, plusIconCenterY);
+        ctx.lineTo(plusIconCenterX + crossLength, plusIconCenterY);
         ctx.stroke();
 
-        // Instagram logo/Title (centered)
         ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
         ctx.font =
           'bold 44px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
         ctx.textAlign = 'center';
         ctx.fillText('Reels', width / 2, topBarY + 14);
 
-        // Top right - Menu/Messages icon
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.95)';
-        ctx.lineWidth = 3.5;
-        ctx.beginPath();
-        ctx.moveTo(width - 70, topBarY - 15);
-        ctx.lineTo(width - 70, topBarY + 15);
-        ctx.moveTo(width - 60, topBarY - 8);
-        ctx.lineTo(width - 80, topBarY - 8);
-        ctx.moveTo(width - 60, topBarY);
-        ctx.lineTo(width - 80, topBarY);
-        ctx.moveTo(width - 60, topBarY + 8);
-        ctx.lineTo(width - 80, topBarY + 8);
-        ctx.stroke();
-
         // Right column - Action buttons (dependency system)
-        const rightColumnCenterX = width - 85; // Virtual center line, 85px from right edge
-        const firstButtonBottomMargin = 76; // Distance from bottom to first button's bottom edge
-        const buttonSize = 75; // Button dimensions (75x75px)
-        const buttonBorderRadius = 12; // Button border radius
-        const threeDotsMarginFromFirstButtonTop = 67; // Gap between first button top and three dots
+        const rightColumnCenterX = width - 85;
+        const firstButtonBottomMargin = 76;
+        const buttonSize = 75;
+        const buttonBorderRadius = 12;
+        const threeDotsMarginFromFirstButtonTop = 67;
 
-        // Calculate first button position from bottom
         const firstButtonBottom = height - firstButtonBottomMargin;
-        const firstButtonCenterY = firstButtonBottom - buttonSize / 2; // Center Y of first button
-        const firstButtonTop = firstButtonCenterY - buttonSize / 2; // Top edge of first button
-
-        // Calculate three dots position (67px above first button top)
+        const firstButtonCenterY = firstButtonBottom - buttonSize / 2;
+        const firstButtonTop = firstButtonCenterY - buttonSize / 2;
         const threeDotsCenterY =
           firstButtonTop - threeDotsMarginFromFirstButtonTop;
 
         const drawShare = (x: number, y: number) => {
-          // Share icon: rectangle outline (empty inside)
-          // Dimensions: 74px width, 62px height, 6px line thickness
           const iconWidth = 74;
           const iconHeight = 62;
+          const lineWidth = 6;
 
           ctx.strokeStyle = 'rgba(255, 255, 255, 0.95)';
-          ctx.lineWidth = 6;
+          ctx.lineWidth = lineWidth;
           ctx.lineCap = 'round';
           ctx.lineJoin = 'round';
 
-          // Draw rectangle centered at (x, y)
-          const rectX = x - iconWidth / 2;
-          const rectY = y - iconHeight / 2;
+          const svgSize = 24;
+          const scaleX = iconWidth / svgSize;
+          const scaleY = iconHeight / svgSize;
+          const scale = Math.min(scaleX, scaleY) * 0.9;
 
-          ctx.strokeRect(rectX, rectY, iconWidth, iconHeight);
+          const offsetX = x - (svgSize * scale) / 2;
+          const offsetY = y - (svgSize * scale) / 2;
+
+          const scalePoint = (sx: number, sy: number) => ({
+            x: offsetX + sx * scale,
+            y: offsetY + sy * scale,
+          });
+
+          const p1 = scalePoint(22, 2);
+          const p2 = scalePoint(11, 13);
+          const p3 = scalePoint(15, 22);
+          const p4 = scalePoint(2, 9);
+
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p3.x, p3.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.lineTo(p4.x, p4.y);
+          ctx.lineTo(p1.x, p1.y);
+          ctx.stroke();
         };
 
         const drawRepost = (x: number, y: number) => {
-          // Repost icon: rectangle outline (empty inside)
-          // Dimensions: 74px width, 84px height, 6px line thickness
           const iconWidth = 74;
           const iconHeight = 84;
+          const lineWidth = 6;
 
           ctx.strokeStyle = 'rgba(255, 255, 255, 0.95)';
-          ctx.lineWidth = 6;
+          ctx.lineWidth = lineWidth;
           ctx.lineCap = 'round';
           ctx.lineJoin = 'round';
 
-          // Draw rectangle centered at (x, y)
-          const rectX = x - iconWidth / 2;
-          const rectY = y - iconHeight / 2;
+          const svgSize = 24;
+          const scaleX = iconWidth / svgSize;
+          const scaleY = iconHeight / svgSize;
+          const scale = Math.min(scaleX, scaleY) * 0.9;
 
-          ctx.strokeRect(rectX, rectY, iconWidth, iconHeight);
+          const offsetX = x - (svgSize * scale) / 2;
+          const offsetY = y - (svgSize * scale) / 2;
+
+          const scalePoint = (sx: number, sy: number) => ({
+            x: offsetX + sx * scale,
+            y: offsetY + sy * scale,
+          });
+
+          const topArrowStart = scalePoint(17, 1);
+          const topArrowMid = scalePoint(21, 5);
+          const topArrowEnd = scalePoint(17, 9);
+
+          ctx.beginPath();
+          ctx.moveTo(topArrowStart.x, topArrowStart.y);
+          ctx.lineTo(topArrowMid.x, topArrowMid.y);
+          ctx.lineTo(topArrowEnd.x, topArrowEnd.y);
+          ctx.stroke();
+
+          const topPathStart = scalePoint(3, 11);
+          const topPathArcStart = scalePoint(3, 9);
+          const topPathArcEnd = scalePoint(7, 5);
+          const topPathEnd = scalePoint(21, 5);
+
+          ctx.beginPath();
+          ctx.moveTo(topPathStart.x, topPathStart.y);
+          ctx.lineTo(topPathArcStart.x, topPathArcStart.y);
+          ctx.quadraticCurveTo(
+            topPathArcStart.x,
+            topPathArcEnd.y,
+            topPathArcEnd.x,
+            topPathArcEnd.y,
+          );
+          ctx.lineTo(topPathEnd.x, topPathEnd.y);
+          ctx.stroke();
+
+          const bottomArrowStart = scalePoint(7, 23);
+          const bottomArrowMid = scalePoint(3, 19);
+          const bottomArrowEnd = scalePoint(7, 15);
+
+          ctx.beginPath();
+          ctx.moveTo(bottomArrowStart.x, bottomArrowStart.y);
+          ctx.lineTo(bottomArrowMid.x, bottomArrowMid.y);
+          ctx.lineTo(bottomArrowEnd.x, bottomArrowEnd.y);
+          ctx.stroke();
+
+          const bottomPathStart = scalePoint(21, 13);
+          const bottomPathArcStart = scalePoint(21, 15);
+          const bottomPathArcEnd = scalePoint(17, 19);
+          const bottomPathEnd = scalePoint(3, 19);
+
+          ctx.beginPath();
+          ctx.moveTo(bottomPathStart.x, bottomPathStart.y);
+          ctx.lineTo(bottomPathArcStart.x, bottomPathArcStart.y);
+          ctx.quadraticCurveTo(
+            bottomPathArcEnd.x,
+            bottomPathArcStart.y,
+            bottomPathArcEnd.x,
+            bottomPathArcEnd.y,
+          );
+          ctx.lineTo(bottomPathEnd.x, bottomPathEnd.y);
+          ctx.stroke();
         };
 
         const drawMoreDots = (x: number, centerY: number) => {
-          // Exact dimensions: each dot 10px diameter, 7px spacing between dots, total height 44px
           const dotDiameter = 10;
           const dotRadius = dotDiameter / 2;
-          const spacingBetweenDots = 7; // Space between adjacent dot edges
+          const spacingBetweenDots = 7;
 
-          // Calculate vertical positions: spacing is measured between dot edges
-          // Middle dot center at centerY, so:
-          // - Top dot center: centerY - dotRadius - spacing - dotRadius = centerY - 12
-          // - Bottom dot center: centerY + dotRadius + spacing + dotRadius = centerY + 12
           const topDotCenterY =
             centerY - dotRadius - spacingBetweenDots - dotRadius;
           const middleDotCenterY = centerY;
@@ -171,161 +227,159 @@ function createInstagramLayoutConfig(): LayoutConfig {
 
           ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
 
-          // Top dot
           ctx.beginPath();
           ctx.arc(x, topDotCenterY, dotRadius, 0, Math.PI * 2);
           ctx.fill();
 
-          // Middle dot
           ctx.beginPath();
           ctx.arc(x, middleDotCenterY, dotRadius, 0, Math.PI * 2);
           ctx.fill();
 
-          // Bottom dot
           ctx.beginPath();
           ctx.arc(x, bottomDotCenterY, dotRadius, 0, Math.PI * 2);
           ctx.fill();
         };
 
-        // Draw three dots menu (67px above first button top)
         drawMoreDots(rightColumnCenterX, threeDotsCenterY);
+        const threeDotsTop = threeDotsCenterY - 12 - 5;
 
-        // Calculate three dots component edges for dependency system
-        // Top dot center: threeDotsCenterY - 12, radius: 5
-        const threeDotsTop = threeDotsCenterY - 12 - 5; // Top dot center - radius = top edge
-
-        // Share count text: positioned from three dots top reference
-        // Go up 72px from three dots top (subtract in canvas coords)
-        // Text height: 28px
-        // Text center should be at 86px from three dots top (72 + 28/2 = 72 + 14 = 86)
         const shareTextHeight = 28;
-        const shareTextCenterY = threeDotsTop - 86; // Center at 86px up from three dots top (72 + 14)
-        const shareTextTop = shareTextCenterY - shareTextHeight / 2; // Text top edge
+        const shareTextCenterY = threeDotsTop - 86;
+        const shareTextTop = shareTextCenterY - shareTextHeight / 2;
 
-        // Share icon: positioned from share text top reference
-        // Go up 36px from text top, then center the 62px icon
-        // Icon center = text top - (36 + 62/2) = text top - 67
-        const shareIconTextPadding = 36; // 36px up from text top
-        const shareIconHeight = 62; // Icon height
+        const shareIconTextPadding = 36;
+        const shareIconHeight = 62;
         const shareIconCenterY =
-          shareTextTop - (shareIconTextPadding + shareIconHeight / 2); // Center at 67px up from text top
+          shareTextTop - (shareIconTextPadding + shareIconHeight / 2);
 
-        // Draw share icon (6px thick rectangle, 74px width, 62px height)
         drawShare(rightColumnCenterX, shareIconCenterY);
-        const shareIconTop = shareIconCenterY - shareIconHeight / 2; // Share icon top edge
+        const shareIconTop = shareIconCenterY - shareIconHeight / 2;
 
-        // Draw share count text
         ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
         ctx.font = `bold ${shareTextHeight}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText('123', rightColumnCenterX, shareTextCenterY);
 
-        // Repost count text: positioned from share icon top reference
-        // Go up 65px from share icon top, then center the 28px text
-        // Text center = share icon top - (65 + 28/2) = share icon top - 79
-        const repostTextMarginFromShareIconTop = 65; // 65px up from share icon top
-        const repostTextHeight = 28; // Text height
+        const repostTextMarginFromShareIconTop = 65;
+        const repostTextHeight = 28;
         const repostTextCenterY =
           shareIconTop -
-          (repostTextMarginFromShareIconTop + repostTextHeight / 2); // Center at 79px up from share icon top
-        const repostTextTop = repostTextCenterY - repostTextHeight / 2; // Repost text top edge
+          (repostTextMarginFromShareIconTop + repostTextHeight / 2);
+        const repostTextTop = repostTextCenterY - repostTextHeight / 2;
 
-        // Repost icon: positioned from repost text top reference
-        // Go up 27px from text top, then center the 84px icon
-        // Icon center = text top - (27 + 84/2) = text top - 69
-        const repostIconTextPadding = 27; // 27px up from text top
-        const repostIconHeight = 84; // Icon height
+        const repostIconTextPadding = 27;
+        const repostIconHeight = 84;
         const repostIconCenterY =
-          repostTextTop - (repostIconTextPadding + repostIconHeight / 2); // Center at 69px up from text top
-        const repostIconTop = repostIconCenterY - repostIconHeight / 2; // Repost icon top edge
+          repostTextTop - (repostIconTextPadding + repostIconHeight / 2);
+        const repostIconTop = repostIconCenterY - repostIconHeight / 2;
 
-        // Draw repost icon (6px thick rectangle, 74px width, 84px height)
         drawRepost(rightColumnCenterX, repostIconCenterY);
 
-        // Draw repost count text
         ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
         ctx.font = `bold ${repostTextHeight}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText('456', rightColumnCenterX, repostTextCenterY);
 
-        // Comment count text: positioned from repost icon top reference
-        // Go up 52px from repost icon top, then center the 28px text
-        // Text center = repost icon top - (52 + 28/2) = repost icon top - 66
-        const commentTextMarginFromRepostIconTop = 52; // 52px up from repost icon top
-        const commentTextHeight = 28; // Text height
+        const commentTextMarginFromRepostIconTop = 52;
+        const commentTextHeight = 28;
         const commentTextCenterY =
           repostIconTop -
-          (commentTextMarginFromRepostIconTop + commentTextHeight / 2); // Center at 66px up from repost icon top
-        const commentTextTop = commentTextCenterY - commentTextHeight / 2; // Comment text top edge
+          (commentTextMarginFromRepostIconTop + commentTextHeight / 2);
+        const commentTextTop = commentTextCenterY - commentTextHeight / 2;
 
-        // Comment icon: positioned from comment text top reference
-        // Go up 33px from text top, then center the 74px icon
-        // Icon center = text top - (33 + 74/2) = text top - 70
-        const commentIconTextPadding = 33; // 33px up from text top
-        const commentIconSize = 74; // Icon size (74x74px square)
+        const commentIconTextPadding = 33;
+        const commentIconSize = 74;
         const commentIconCenterY =
-          commentTextTop - (commentIconTextPadding + commentIconSize / 2); // Center at 70px up from text top
-        const commentIconTop = commentIconCenterY - commentIconSize / 2; // Comment icon top edge
+          commentTextTop - (commentIconTextPadding + commentIconSize / 2);
+        const commentIconTop = commentIconCenterY - commentIconSize / 2;
 
-        // Draw comment icon (6px thick rectangle, 74x74px square)
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.95)';
-        ctx.lineWidth = 6;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        const commentIconX = rightColumnCenterX - commentIconSize / 2;
-        const commentIconY = commentIconCenterY - commentIconSize / 2;
-        ctx.strokeRect(
-          commentIconX,
-          commentIconY,
-          commentIconSize,
-          commentIconSize,
-        );
+        const drawComment = (x: number, y: number) => {
+          const iconSize = 74;
+          const lineWidth = 6;
 
-        // Draw comment count text
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.95)';
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+
+          const svgSize = 24;
+          const scale = (iconSize / svgSize) * 0.9;
+
+          const offsetX = x - (svgSize * scale) / 2;
+          const offsetY = y - (svgSize * scale) / 2;
+
+          const svgPath =
+            'M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z';
+
+          const path = new Path2D(svgPath);
+
+          ctx.save();
+          ctx.translate(offsetX, offsetY);
+          ctx.scale(scale, scale);
+          ctx.lineWidth = lineWidth / scale;
+          ctx.stroke(path);
+          ctx.restore();
+        };
+
+        drawComment(rightColumnCenterX, commentIconCenterY);
+
         ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
         ctx.font = `bold ${commentTextHeight}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText('789', rightColumnCenterX, commentTextCenterY);
 
-        // Likes count text: positioned from comment icon top reference
-        // Go up 58px from comment icon top, then center the 28px text
-        // Text center = comment icon top - (58 + 28/2) = comment icon top - 72
-        const likesTextMarginFromCommentIconTop = 58; // 58px up from comment icon top
-        const likesTextHeight = 28; // Text height
+        const likesTextMarginFromCommentIconTop = 58;
+        const likesTextHeight = 28;
         const likesTextCenterY =
           commentIconTop -
-          (likesTextMarginFromCommentIconTop + likesTextHeight / 2); // Center at 72px up from comment icon top
-        const likesTextTop = likesTextCenterY - likesTextHeight / 2; // Likes text top edge
+          (likesTextMarginFromCommentIconTop + likesTextHeight / 2);
+        const likesTextTop = likesTextCenterY - likesTextHeight / 2;
 
-        // Likes icon: positioned from likes text top reference
-        // Go up 36px from text top, then center the 66px icon
-        // Icon center = text top - (36 + 66/2) = text top - 69
-        const likesIconTextPadding = 36; // 36px up from text top
-        const likesIconHeight = 66; // Icon height
-        const likesIconWidth = 74; // Icon width
+        const likesIconTextPadding = 36;
+        const likesIconHeight = 66;
         const likesIconCenterY =
-          likesTextTop - (likesIconTextPadding + likesIconHeight / 2); // Center at 69px up from text top
+          likesTextTop - (likesIconTextPadding + likesIconHeight / 2);
 
-        // Draw likes icon (6px thick rectangle, 74px width, 66px height)
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.95)';
-        ctx.lineWidth = 6;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        const likesIconX = rightColumnCenterX - likesIconWidth / 2;
-        const likesIconY = likesIconCenterY - likesIconHeight / 2;
-        ctx.strokeRect(likesIconX, likesIconY, likesIconWidth, likesIconHeight);
+        const drawLikes = (x: number, y: number) => {
+          const iconWidth = 74;
+          const iconHeight = 66;
+          const lineWidth = 6;
 
-        // Draw likes count text
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.95)';
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+
+          const svgSize = 24;
+          const scaleX = iconWidth / svgSize;
+          const scaleY = iconHeight / svgSize;
+          const scale = Math.min(scaleX, scaleY) * 0.9;
+
+          const offsetX = x - (svgSize * scale) / 2;
+          const offsetY = y - (svgSize * scale) / 2;
+
+          const svgPath =
+            'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z';
+
+          const path = new Path2D(svgPath);
+
+          ctx.save();
+          ctx.translate(offsetX, offsetY);
+          ctx.scale(scale, scale);
+          ctx.lineWidth = lineWidth / scale;
+          ctx.stroke(path);
+          ctx.restore();
+        };
+
+        drawLikes(rightColumnCenterX, likesIconCenterY);
+
         ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
         ctx.font = `bold ${likesTextHeight}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText('1.2K', rightColumnCenterX, likesTextCenterY);
 
-        // Draw first button (75x75px with 12px border radius)
         const actionButtonX = rightColumnCenterX - buttonSize / 2;
         const actionButtonY = firstButtonCenterY - buttonSize / 2;
 
@@ -372,7 +426,7 @@ function createInstagramLayoutConfig(): LayoutConfig {
         ctx.closePath();
         ctx.fill();
 
-        // Bottom left - Profile and caption (dependency system: Bottom → Caption → Circle)
+        // Profile and caption (dependency system: Bottom → Caption → Circle)
         const captionBottomMargin = 65;
         const captionHeight = 46;
         const captionMarginFromCircle = 31;
@@ -385,7 +439,6 @@ function createInstagramLayoutConfig(): LayoutConfig {
         const profileY = circleBottom - profilePicRadius;
         const profileX = profileXLeftMargin + profilePicRadius;
 
-        // Profile picture
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.95)';
         ctx.lineWidth = 2;
         ctx.beginPath();
