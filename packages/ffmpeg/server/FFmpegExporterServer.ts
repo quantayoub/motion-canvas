@@ -45,20 +45,12 @@ function formatFilters(filters: AudioVideoFilter[]): string {
     .join(',');
 }
 
-/**
- * The server-side implementation of the FFmpeg video exporter.
- */
 export class FFmpegExporterServer {
   private readonly stream: ImageStream;
   private readonly command: ffmpeg.FfmpegCommand;
   private readonly promise: Promise<void>;
-  /**
-   * Number of frames currently being processed by handleFrame.
-   */
+  private ended = false;
   private pendingFrames = 0;
-  /**
-   * Resolvers waiting for all frames to complete before ending the stream.
-   */
   private readonly pendingFramesResolvers: Array<() => void> = [];
 
   public constructor(
@@ -72,14 +64,12 @@ export class FFmpegExporterServer {
     this.stream = new ImageStream(size);
     this.command = ffmpeg();
 
-    // Input image sequence
     this.command
       .input(this.stream)
       .inputFormat('rawvideo')
       .inputOptions(['-pix_fmt rgba', '-s:v', `${size.x}x${size.y}`])
       .inputFps(settings.fps);
 
-    // Input audio
     const sounds = [...settings.sounds];
     if (settings.audio && settings.includeAudio) {
       sounds.push({
@@ -173,9 +163,10 @@ export class FFmpegExporterServer {
       this.command.outputOptions(['-map 0:v', '-map [a]']);
     }
 
-    // Output settings
+    const finalPath = path.join(this.config.output, `${settings.name}.mp4`);
+    const tempPath = path.join(this.config.output, `${settings.name}.tmp.mp4`);
     this.command
-      .output(path.join(this.config.output, `${settings.name}.mp4`))
+      .output(tempPath)
       .outputOptions([
         '-pix_fmt yuv420p',
         `-t ${settings.duration / settings.fps}`,
@@ -187,7 +178,23 @@ export class FFmpegExporterServer {
     }
 
     this.promise = new Promise<void>((resolve, reject) => {
-      this.command.on('end', resolve).on('error', reject);
+      this.command
+        .on('end', async () => {
+          try {
+            if (fs.existsSync(tempPath)) {
+              await fs.promises.rename(tempPath, finalPath);
+            }
+            resolve();
+          } catch (e) {
+            reject(e);
+          }
+        })
+        .on('error', async e => {
+          if (fs.existsSync(tempPath)) {
+            await fs.promises.unlink(tempPath).catch(() => undefined);
+          }
+          reject(e);
+        });
     });
   }
 
@@ -200,6 +207,11 @@ export class FFmpegExporterServer {
   }
 
   public async handleFrame(req: Readable) {
+    if (this.ended) {
+      // Drain the readable to avoid backpressure; guard resume existence.
+      if (typeof (req as any).resume === 'function') (req as any).resume();
+      return;
+    }
     this.pendingFrames++;
     try {
       await this.stream.pushImage(req);
@@ -214,6 +226,7 @@ export class FFmpegExporterServer {
   }
 
   public async end(result: RendererResult) {
+    this.ended = true;
     // Wait for all pending frame processing to complete before closing the stream.
     // This prevents "stream.push() after EOF" errors when frames are still being
     // processed at higher frame rates.
