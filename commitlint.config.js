@@ -13,6 +13,8 @@ module.exports = {
         'e2e',
         'examples',
         'ffmpeg',
+        'captions',
+        'reel',
         'legacy',
         'player',
         'ui',

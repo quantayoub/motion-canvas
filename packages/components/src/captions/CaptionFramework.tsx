@@ -51,7 +51,7 @@ export interface CaptionConfig {
   safeAreaMargin?: number;
 }
 
-export type TriggerFunction = () => any;
+export type TriggerFunction = (ctx?: {node?: Txt}) => any;
 export interface TriggerMap {
   [word: string]: TriggerFunction;
 }
@@ -135,7 +135,9 @@ export class CaptionFramework {
             y = Math.floor(safeTop + safeH / 2);
           }
         }
-      } catch {}
+      } catch {
+        /* noop */
+      }
     }
 
     const containerRef = createRef<Rect>();
@@ -215,12 +217,12 @@ export class CaptionFramework {
     );
   }
 
-  private setCurrentWord(word: string) {
+  private setCurrentWord(word: string, node?: Txt) {
     const lowerWord = word.toLowerCase();
     this.currentWordValue = lowerWord;
     if (this.triggers && this.triggers[lowerWord]) {
       try {
-        const result: any = this.triggers[lowerWord]!();
+        const result: any = this.triggers[lowerWord]!({node});
         // If trigger returned an animation generator function, spawn it.
         if (typeof result === 'function') {
           spawn(result as any);
@@ -232,7 +234,9 @@ export class CaptionFramework {
           } as any);
         }
         // If void or unsupported, just ignore.
-      } catch {}
+      } catch {
+        /* noop */
+      }
     }
   }
 
@@ -252,12 +256,24 @@ export class CaptionFramework {
       mul = 2 + (maxMul - 2) * extra;
     }
     let gap = this.config.wordGapBase * mul * this.config.speedFactor;
-    if (word.endsWith(',')) gap += 0.12 * this.config.speedFactor;
+    // Add pauses for punctuation marks
+    if (word.endsWith(',')) {
+      gap += 0.12 * this.config.speedFactor;
+    } else if (word.endsWith('.')) {
+      gap += 0.6 * this.config.speedFactor;
+    } else if (word.endsWith('?')) {
+      gap += 0.15 * this.config.speedFactor;
+    } else if (word.endsWith('!')) {
+      gap += 0.15 * this.config.speedFactor;
+    } else if (word.endsWith(';')) {
+      gap += 0.1 * this.config.speedFactor;
+    } else if (word.endsWith(':')) {
+      gap += 0.1 * this.config.speedFactor;
+    }
     return gap;
   }
 
-  private getPauseDuration(wordIndex: number, word: string): number {
-    // hook for user-provided pauses externally if needed later
+  private getPauseDuration(): number {
     return 0;
   }
 
@@ -302,103 +318,61 @@ export class CaptionFramework {
       const wordLen = word.length;
       const spaceLen = charCount === 0 ? 0 : 1;
       const totalLen = charCount + spaceLen + wordLen;
-      const effectiveMaxChars = Math.max(
-        10,
-        this.config.maxCharsPerLine - (this.config.textPaddingChars ?? 0),
-      );
 
       const needsNewLine =
-        (totalLen > effectiveMaxChars ||
-          wordCount >= (this.config.maxWordsPerLine ?? 9)) &&
-        lineCount < this.config.maxLines - 1;
+        totalLen > this.config.maxCharsPerLine ||
+        wordCount >= this.config.maxWordsPerLine;
 
       if (needsNewLine) {
-        yield* waitFor(this.config.pagePauseBase * this.config.speedFactor);
-
-        if (pageLineCount >= this.config.linesPerPage) {
-          yield* this.startNewPage();
-          pageLineCount = 0;
-
-          // new first line of new page
-          lineRef = createRef<Rect>();
-          this.rowsContainerRef().add(
-            <Rect
-              ref={lineRef}
-              layout
-              direction={'row'}
-              alignItems={'center'}
-              justifyContent={'center'}
-              gap={10}
-            />,
-          );
-          this.currentPageLines.push(lineRef);
-          pageLineCount = 1;
-          charCount = wordLen;
-          wordCount = 1;
-          lineCount++;
-
-          const txtRef = createRef<Txt>();
-          const initialColor = this.config.highlightNewWords
-            ? this.config.newWordColor
-            : this.config.textColor;
-          lineRef().add(
-            <Txt
-              ref={txtRef}
-              text={word}
-              fontSize={this.config.fontSize}
-              fill={initialColor}
-              fontFamily={this.config.fontFamily}
-              fontWeight={this.config.fontWeight}
-              opacity={0}
-            />,
-          );
-          this.setCurrentWord(word);
-          const wl = word.replace(/[.,!?;:]/g, '').length;
-          let fade = this.config.wordFadeBase;
-          if (wl > 6) fade = this.config.wordFadeBase * (1 + (wl - 6) * 0.1);
-          yield* txtRef().opacity(
-            1,
-            fade * this.config.speedFactor,
-            easeOutCubic,
-          );
-          if (this.config.highlightNewWords) {
-            yield* txtRef().fill(
-              this.config.textColor,
-              0.25 * this.config.speedFactor,
-              easeOutCubic,
-            );
-          }
-          const pause = this.getPauseDuration(i, word);
-          if (pause > 0) yield* waitFor(pause);
-          else yield* waitFor(this.getAdaptiveWordGap(word));
-          continue;
-        }
-
-        // new line in current page
-        lineRef = createRef<Rect>();
-        this.rowsContainerRef().add(
-          <Rect
-            ref={lineRef}
-            layout
-            direction={'row'}
-            alignItems={'center'}
-            justifyContent={'center'}
-            gap={10}
-          />,
-        );
-        this.currentPageLines.push(lineRef);
-        charCount = 0;
-        wordCount = 0;
-        lineCount++;
-        pageLineCount++;
-        if (lineCount >= this.config.maxLines) {
+        if (lineCount >= this.config.maxLines - 1) {
           if (this.config.overflowStrategy === 'warn') {
-            // eslint-disable-next-line no-console
-            console.warn(
-              `Caption overflow: max lines (${this.config.maxLines}) reached`,
-            );
+            // console.warn(
+            //   `Caption overflow: max lines (${this.config.maxLines}) reached on this page, allowing overflow on last line`,
+            // );
           }
-          break;
+        } else {
+          yield* waitFor(this.config.pagePauseBase * this.config.speedFactor);
+
+          if (pageLineCount >= this.config.linesPerPage) {
+            yield* this.startNewPage();
+            lineCount = 0; // Reset lineCount for the new page
+            pageLineCount = 0;
+
+            // new first line of new page
+            lineRef = createRef<Rect>();
+            this.rowsContainerRef().add(
+              <Rect
+                ref={lineRef}
+                layout
+                direction={'row'}
+                alignItems={'center'}
+                justifyContent={'center'}
+                gap={10}
+              />,
+            );
+            this.currentPageLines.push(lineRef);
+            pageLineCount = 1;
+            charCount = 0;
+            wordCount = 0;
+          } else {
+            // new line in current page
+            lineRef = createRef<Rect>();
+            this.rowsContainerRef().add(
+              <Rect
+                ref={lineRef}
+                layout
+                direction={'row'}
+                alignItems={'center'}
+                justifyContent={'center'}
+                gap={10}
+              />,
+            );
+            this.currentPageLines.push(lineRef);
+            lineCount++;
+            pageLineCount++;
+            charCount = 0;
+            wordCount = 0;
+          }
         }
       }
 
@@ -417,7 +391,7 @@ export class CaptionFramework {
           opacity={0}
         />,
       );
-      this.setCurrentWord(word);
+      this.setCurrentWord(word, txtRef());
       const wl = word.replace(/[.,!?;:]/g, '').length;
       let fade = this.config.wordFadeBase;
       if (wl > 6) fade = this.config.wordFadeBase * (1 + (wl - 6) * 0.1);
@@ -429,7 +403,7 @@ export class CaptionFramework {
           easeOutCubic,
         );
       }
-      const pause = this.getPauseDuration(i, word);
+      const pause = this.getPauseDuration();
       if (pause > 0) yield* waitFor(pause);
       else yield* waitFor(this.getAdaptiveWordGap(word));
 

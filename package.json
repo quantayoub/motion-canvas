@@ -20,6 +20,8 @@
     "ui:type": "npm run type -w packages/ui",
     "template:dev": "npm run dev -w packages/template",
     "template:build": "npm run build -w packages/template",
+    "reel:dev": "npm run dev -w packages/reel",
+    "reel:build": "npm run build -w packages/reel",
     "examples:dev": "npm run dev -w packages/examples",
     "examples:build": "npm run build -w packages/examples",
     "player:dev": "npm run dev -w packages/player",

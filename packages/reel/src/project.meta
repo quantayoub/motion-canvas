@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "shared": {
+    "background": "rgb(20,20,20)",
+    "range": [
+      0,
+      null
+    ],
+    "size": {
+      "x": 1080,
+      "y": 1920
+    },
+    "layout": "instagram",
+    "audioOffset": 0
+  },
+  "preview": {
+    "fps": 60,
+    "resolutionScale": 1,
+    "showLayoutOverlay": true
+  },
+  "rendering": {
+    "fps": 60,
+    "resolutionScale": 1,
+    "colorSpace": "srgb",
+    "exporter": {
+      "name": "@motion-canvas/ffmpeg",
+      "options": {
+        "fastStart": true,
+        "includeAudio": true,
+        "audioSampleRate": 48000
+      }
+    },
+    "includeLayoutOverlay": false
+  }
+}

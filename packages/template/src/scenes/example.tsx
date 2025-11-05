@@ -1,4 +1,5 @@
 import {Rect, makeScene2D} from '@motion-canvas/2d';
+import {CaptionFramework} from '@motion-canvas/components';
 import {
   all,
   createRef,
@@ -7,7 +8,6 @@ import {
   waitFor,
   waitUntil,
 } from '@motion-canvas/core';
-import {CaptionFramework} from '../components/CaptionFramework';
 
 export default makeScene2D(function* (view) {
   const rect = createRef<Rect>();

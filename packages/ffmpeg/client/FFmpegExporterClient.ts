@@ -121,14 +121,17 @@ export class FFmpegExporterClient implements Exporter {
 
     const data = context.getImageData(0, 0, canvas.width, canvas.height).data;
     this.concurrentFrames++;
-    this.invoke('handleFrame', data, 'octet-stream')
-      .then(() => {
-        this.concurrentFrames--;
-      })
-      .catch(error => {
-        this.error = error;
-        this.concurrentFrames--;
-      });
+    try {
+      // Await the frame send to ensure frames are transmitted sequentially.
+      // This prevents frames from arriving out of order at the server,
+      // which would cause glitching in the final video.
+      await this.invoke('handleFrame', data, 'octet-stream');
+      this.concurrentFrames--;
+    } catch (error) {
+      this.error = error;
+      this.concurrentFrames--;
+      throw error;
+    }
   }
 
   public async stop(result: RendererResult): Promise<void> {
