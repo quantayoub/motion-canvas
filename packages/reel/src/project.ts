@@ -1,8 +1,9 @@
 import {makeProject} from '@motion-canvas/core';
 
-import part3 from './scenes/part3?scene';
+import endvid from './scenes/endvid?scene';
+import hook from './scenes/hook?scene';
 
 export default makeProject({
   experimentalFeatures: true,
-  scenes: [part3],
+  scenes: [hook, endvid],
 });
