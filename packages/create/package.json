@@ -1,6 +1,6 @@
 {
   "name": "@quantmotion/create",
-  "version": "1.0.0",
+  "version": "3.17.4",
   "description": "Quickly scaffold Motion Canvas projects",
   "main": "index.js",
   "author": "quantayoub",
