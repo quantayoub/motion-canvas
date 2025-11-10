@@ -1,10 +1,6 @@
-import {Rect, Txt, View2D} from '@motion-canvas/2d';
-import type {
-  Reference,
-  SignalValue,
-  ThreadGenerator,
-} from '@motion-canvas/core';
-import {all, createRef, easeOutCubic} from '@motion-canvas/core';
+import {Rect, Txt, View2D} from '@quantmotion/2d';
+import type {Reference, SignalValue, ThreadGenerator} from '@quantmotion/core';
+import {all, createRef, easeOutCubic} from '@quantmotion/core';
 import {pythonLanguage} from './languages/python';
 import {vscodeDark} from './themes/vscode-dark';
 import {vscodeHighContrast} from './themes/vscode-high-contrast';

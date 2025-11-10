@@ -1,5 +1,5 @@
-import {Rect, makeScene2D} from '@motion-canvas/2d';
-import {waitFor} from '@motion-canvas/core';
+import {Rect, makeScene2D} from '@quantmotion/2d';
+import {waitFor} from '@quantmotion/core';
 
 // Original shader created by ufffd
 // https://www.shadertoy.com/view/lcfXD8

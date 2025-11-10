@@ -23,9 +23,9 @@ module.exports = () => ({
           },
           innerHTML: JSON.stringify({
             imports: {
-              '@motion-canvas/core': `${core}`,
-              '@motion-canvas/2d': `${two}`,
-              '@motion-canvas/2d/jsx-runtime': `${two}`,
+              '@quantmotion/core': `${core}`,
+              '@quantmotion/2d': `${two}`,
+              '@quantmotion/2d/jsx-runtime': `${two}`,
             },
           }),
         },

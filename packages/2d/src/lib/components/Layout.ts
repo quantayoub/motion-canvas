@@ -20,7 +20,7 @@ import {
   tween,
   Vector2,
   Vector2Signal,
-} from '@motion-canvas/core';
+} from '@quantmotion/core';
 import {
   addInitializer,
   cloneable,

@@ -8,7 +8,7 @@ import {
   all,
   capitalize,
   threadable,
-} from '@motion-canvas/core';
+} from '@quantmotion/core';
 import {computed, initial, nodeName, signal} from '../decorators';
 import {is} from '../utils';
 import {Node} from './Node';

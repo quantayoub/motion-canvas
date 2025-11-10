@@ -1,5 +1,5 @@
-import {Circle, makeScene2D} from '@motion-canvas/2d';
-import {all, createRef, easeInCubic, easeOutCubic} from '@motion-canvas/core';
+import {Circle, makeScene2D} from '@quantmotion/2d';
+import {all, createRef, easeInCubic, easeOutCubic} from '@quantmotion/core';
 
 export default makeScene2D(function* (view) {
   const ref = createRef<Circle>();

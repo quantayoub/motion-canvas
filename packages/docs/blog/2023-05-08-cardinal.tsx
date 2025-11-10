@@ -1,5 +1,5 @@
-import {makeScene2D, Rect} from '@motion-canvas/2d';
-import {createRef} from '@motion-canvas/core';
+import {makeScene2D, Rect} from '@quantmotion/2d';
+import {createRef} from '@quantmotion/core';
 
 export default makeScene2D(function* (view) {
   const rect = createRef<Rect>();

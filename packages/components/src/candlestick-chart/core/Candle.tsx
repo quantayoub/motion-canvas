@@ -1,5 +1,5 @@
-import {Node, Rect} from '@motion-canvas/2d';
-import {Reference, createRef} from '@motion-canvas/core';
+import {Node, Rect} from '@quantmotion/2d';
+import {Reference, createRef} from '@quantmotion/core';
 import type {AnimatedOHLC, CandleStyle, PriceScale} from '../types';
 
 export interface CandleProps {

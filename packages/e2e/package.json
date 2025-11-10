@@ -1,5 +1,5 @@
 {
-  "name": "@motion-canvas/e2e",
+  "name": "@quantmotion/e2e",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,14 +8,14 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@motion-canvas/2d": "*",
-    "@motion-canvas/core": "*",
+    "@quantmotion/2d": "*",
+    "@quantmotion/core": "*",
     "jest-image-snapshot": "^6.2.0",
     "playwright": "^1.46.1",
     "vitest": "^0.34.6"
   },
   "devDependencies": {
-    "@motion-canvas/ui": "*",
-    "@motion-canvas/vite-plugin": "*"
+    "@quantmotion/ui": "*",
+    "@quantmotion/vite-plugin": "*"
   }
 }

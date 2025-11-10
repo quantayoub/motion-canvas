@@ -1,5 +1,5 @@
-import {Rect, makeScene2D} from '@motion-canvas/2d';
-import {CaptionFramework} from '@motion-canvas/captions';
+import {Rect, makeScene2D} from '@quantmotion/2d';
+import {CaptionFramework} from '@quantmotion/captions';
 import {
   Matrix2D,
   Vector2,
@@ -7,7 +7,7 @@ import {
   createRef,
   easeInOutExpo,
   waitFor,
-} from '@motion-canvas/core';
+} from '@quantmotion/core';
 
 export default makeScene2D(function* (view) {
   const size = view.size();

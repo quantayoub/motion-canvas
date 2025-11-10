@@ -1,4 +1,4 @@
-import {Vector2} from '@motion-canvas/core';
+import {Vector2} from '@quantmotion/core';
 import {CurveProfile} from './CurveProfile';
 import {LineSegment} from './LineSegment';
 import {getPointAtDistance} from './getPointAtDistance';

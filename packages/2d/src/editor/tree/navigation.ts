@@ -1,6 +1,6 @@
-import {Node} from '@motion-canvas/2d';
-import {useShortcuts} from '@motion-canvas/ui';
 import {useComputed} from '@preact/signals';
+import {Node} from '@quantmotion/2d';
+import {useShortcuts} from '@quantmotion/ui';
 import {usePluginState} from '../Provider';
 import {SCENE_GRAPH_SHORTCUTS} from '../shortcuts';
 

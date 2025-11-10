@@ -1,4 +1,4 @@
-import type {SignalValue} from '@motion-canvas/core';
+import type {SignalValue} from '@quantmotion/core';
 
 export interface CodeDisplayConfig {
   code: string | SignalValue<string>;

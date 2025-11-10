@@ -1,4 +1,4 @@
-import {makeShortcuts} from '@motion-canvas/ui';
+import {makeShortcuts} from '@quantmotion/ui';
 export const SCENE_GRAPH_SHORTCUTS = makeShortcuts('scene-graph', {
   moveUp: {
     display: '↑',

@@ -5,14 +5,14 @@ import type {
   RendererResult,
   RendererSettings,
   Sound,
-} from '@motion-canvas/core';
+} from '@quantmotion/core';
 import {
   BoolMetaField,
   EventDispatcher,
   NumberMetaField,
   ObjectMetaField,
   ValueOf,
-} from '@motion-canvas/core';
+} from '@quantmotion/core';
 
 type ServerResponse =
   | {
@@ -54,7 +54,7 @@ const EXPORT_RETRY_DELAY = 1000;
  * initialized by invoking `start`.
  */
 export class FFmpegExporterClient implements Exporter {
-  public static readonly id = '@motion-canvas/ffmpeg';
+  public static readonly id = '@quantmotion/ffmpeg';
   public static readonly displayName = 'Video (FFmpeg)';
 
   public static meta(project: Project): MetaField<any> {
@@ -75,9 +75,8 @@ export class FFmpegExporterClient implements Exporter {
 
   static {
     if (import.meta.hot) {
-      import.meta.hot.on(
-        `motion-canvas/ffmpeg-ack`,
-        (response: ServerResponse) => this.response.dispatch(response),
+      import.meta.hot.on(`quantmotion/ffmpeg-ack`, (response: ServerResponse) =>
+        this.response.dispatch(response),
       );
     }
   }
@@ -182,7 +181,7 @@ export class FFmpegExporterClient implements Exporter {
         FFmpegExporterClient.response.subscribe(handle);
         switch (strategy) {
           case 'ws':
-            import.meta.hot!.send('motion-canvas/ffmpeg', {method, data});
+            import.meta.hot!.send('quantmotion/ffmpeg', {method, data});
             break;
           case 'octet-stream':
             fetch(`/ffmpeg/${method}`, {

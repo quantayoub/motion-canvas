@@ -1,9 +1,5 @@
-import type {
-  RendererResult,
-  RendererSettings,
-  Sound,
-} from '@motion-canvas/core';
-import type {PluginConfig} from '@motion-canvas/vite-plugin';
+import type {RendererResult, RendererSettings, Sound} from '@quantmotion/core';
+import type {PluginConfig} from '@quantmotion/vite-plugin';
 import {ffmpegPath, ffprobePath} from 'ffmpeg-ffprobe-static';
 import type {AudioVideoFilter, FilterSpecification} from 'fluent-ffmpeg';
 import ffmpeg from 'fluent-ffmpeg';

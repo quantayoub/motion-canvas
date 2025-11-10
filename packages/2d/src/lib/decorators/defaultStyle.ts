@@ -1,4 +1,4 @@
-import {capitalize} from '@motion-canvas/core';
+import {capitalize} from '@quantmotion/core';
 import {Layout} from '../components';
 
 export function defaultStyle<T>(initial?: T): PropertyDecorator {

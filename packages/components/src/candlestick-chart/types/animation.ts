@@ -1,4 +1,4 @@
-import type {TimingFunction} from '@motion-canvas/core';
+import type {TimingFunction} from '@quantmotion/core';
 import type {OHLCData} from './candle';
 
 /**

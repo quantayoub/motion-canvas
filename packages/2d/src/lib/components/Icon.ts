@@ -4,7 +4,7 @@ import {
   SignalValue,
   SimpleSignal,
   useLogger,
-} from '@motion-canvas/core';
+} from '@quantmotion/core';
 import {colorSignal, computed, initial, signal} from '../decorators';
 import {Img, ImgProps} from './Img';
 

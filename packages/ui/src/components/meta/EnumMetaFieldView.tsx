@@ -1,4 +1,4 @@
-import type {EnumMetaField} from '@motion-canvas/core';
+import type {EnumMetaField} from '@quantmotion/core';
 import {useSubscribableValue} from '../../hooks';
 import {Select} from '../controls';
 import {MetaFieldGroup} from './MetaFieldGroup';

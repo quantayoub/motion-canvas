@@ -1,13 +1,13 @@
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import {parser as javascript} from '@lezer/javascript';
-import type {View2D} from '@motion-canvas/2d';
+import type {View2D} from '@quantmotion/2d';
 import type {
   FullSceneDescription,
   Player as PlayerType,
   Project,
   Stage as StageType,
   ThreadGeneratorFactory,
-} from '@motion-canvas/core';
+} from '@quantmotion/core';
 
 type Setter = (value: PlayerType) => void;
 
@@ -118,9 +118,9 @@ export async function borrowPlayer(
       Stage,
       ValueDispatcher,
       DefaultPlugin,
-    } = await import(/* webpackIgnore: true */ '@motion-canvas/core');
+    } = await import(/* webpackIgnore: true */ '@quantmotion/core');
     const {makeScene2D, Code, LezerHighlighter} = await import(
-      /* webpackIgnore: true */ '@motion-canvas/2d'
+      /* webpackIgnore: true */ '@quantmotion/2d'
     );
     Code.defaultHighlighter = new LezerHighlighter(
       javascript.configure({

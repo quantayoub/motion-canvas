@@ -1,11 +1,11 @@
 {
-  "name": "@motion-canvas/vite-plugin",
-  "version": "3.17.2",
+  "name": "@quantmotion/vite-plugin",
+  "version": "1.0.0",
   "description": "A Vite plugin for Motion Canvas projects",
   "main": "lib/index.js",
-  "author": "motion-canvas",
-  "homepage": "https://motioncanvas.io/",
-  "bugs": "https://github.com/motion-canvas/motion-canvas/issues",
+  "author": "quantayoub",
+  "homepage": "https://github.com/quantayoub/quantmotion",
+  "bugs": "https://github.com/quantayoub/quantmotion/issues",
   "license": "MIT",
   "scripts": {
     "dev": "tsc -w",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/motion-canvas/motion-canvas.git"
+    "url": "git+https://github.com/quantayoub/quantmotion.git"
   },
   "files": [
     "lib"

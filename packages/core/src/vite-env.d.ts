@@ -4,16 +4,16 @@ import 'vite/types/customEvent';
 
 declare module 'vite/types/customEvent' {
   interface CustomEventMap {
-    'motion-canvas:meta': {source: string; data: any};
-    'motion-canvas:meta-ack': {source: string};
-    'motion-canvas:export': {
+    'quantmotion:meta': {source: string; data: any};
+    'quantmotion:meta-ack': {source: string};
+    'quantmotion:export': {
       data: string;
       subDirectories: string[];
       mimeType: string;
       frame: number;
       name: string;
     };
-    'motion-canvas:export-ack': {frame: number};
-    'motion-canvas:assets': {urls: string[]};
+    'quantmotion:export-ack': {frame: number};
+    'quantmotion:assets': {urls: string[]};
   }
 }

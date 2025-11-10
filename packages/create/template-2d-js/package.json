@@ -8,12 +8,12 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@motion-canvas/core": "*",
-    "@motion-canvas/2d": "*"
+    "@quantmotion/core": "^3.17.2",
+    "@quantmotion/2d": "^3.17.2"
   },
   "devDependencies": {
-    "@motion-canvas/ui": "*",
-    "@motion-canvas/vite-plugin": "*",
+    "@quantmotion/ui": "^3.17.2",
+    "@quantmotion/vite-plugin": "^3.17.2",
     "vite": "^4.0.0"
   }
 }

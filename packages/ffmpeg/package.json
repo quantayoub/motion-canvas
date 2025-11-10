@@ -1,11 +1,11 @@
 {
-  "name": "@motion-canvas/ffmpeg",
-  "version": "3.17.2",
+  "name": "@quantmotion/ffmpeg",
+  "version": "1.0.0",
   "description": "An FFmpeg video exporter for Motion Canvas",
   "main": "lib/server/index.js",
-  "author": "motion-canvas",
-  "homepage": "https://motioncanvas.io/",
-  "bugs": "https://github.com/motion-canvas/motion-canvas/issues",
+  "author": "quantayoub",
+  "homepage": "https://github.com/quantayoub/quantmotion",
+  "bugs": "https://github.com/quantayoub/quantmotion/issues",
   "license": "GPLv3",
   "scripts": {
     "build": "npm run client:build && npm run server:build",
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/motion-canvas/motion-canvas.git"
+    "url": "https://github.com/quantayoub/quantmotion.git"
   },
   "files": [
     "lib"
@@ -25,8 +25,8 @@
     "@types/fluent-ffmpeg": "^2.1.21"
   },
   "dependencies": {
-    "@motion-canvas/core": "^3.17.2",
-    "@motion-canvas/vite-plugin": "^3.17.2",
+    "@quantmotion/core": "^1.0.0",
+    "@quantmotion/vite-plugin": "^1.0.0",
     "ffmpeg-ffprobe-static": "^6.1.1-rc.5",
     "fluent-ffmpeg": "^2.1.3"
   }

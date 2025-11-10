@@ -30,7 +30,7 @@ import {
   transformScalar,
   unwrap,
   useLogger,
-} from '@motion-canvas/core';
+} from '@quantmotion/core';
 import {
   NODE_NAME,
   cloneable,

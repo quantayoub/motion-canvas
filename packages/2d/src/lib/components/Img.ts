@@ -10,7 +10,7 @@ import {
   Vector2,
   useLogger,
   viaProxy,
-} from '@motion-canvas/core';
+} from '@quantmotion/core';
 import {computed, initial, nodeName, signal} from '../decorators';
 import {DesiredLength} from '../partials';
 import {drawImage} from '../utils';
@@ -37,10 +37,10 @@ export interface ImgProps extends RectProps {
  *
  * @preview
  * ```tsx editor
- * import {Img} from '@motion-canvas/2d';
- * import {all, waitFor} from '@motion-canvas/core';
- * import {createRef} from '@motion-canvas/core';
- * import {makeScene2D} from '@motion-canvas/2d';
+ * import {Img} from '@quantmotion/2d';
+ * import {all, waitFor} from '@quantmotion/core';
+ * import {createRef} from '@quantmotion/core';
+ * import {makeScene2D} from '@quantmotion/2d';
  *
  * export default makeScene2D(function* (view) {
  *   const ref = createRef<Img>();
@@ -71,7 +71,7 @@ export class Img extends Rect {
 
   static {
     if (import.meta.hot) {
-      import.meta.hot.on('motion-canvas:assets', ({urls}) => {
+      import.meta.hot.on('quantmotion:assets', ({urls}) => {
         for (const url of urls) {
           if (Img.pool[url]) {
             delete Img.pool[url];

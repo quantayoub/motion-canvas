@@ -1,4 +1,4 @@
-import {Stage, getLayout} from '@motion-canvas/core';
+import {Stage, getLayout} from '@quantmotion/core';
 import {JSX} from 'preact';
 import {useEffect, useMemo, useState} from 'preact/hooks';
 import {useApplication} from '../../contexts';

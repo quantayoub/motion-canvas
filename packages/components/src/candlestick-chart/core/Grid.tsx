@@ -1,5 +1,5 @@
-import {Line, Node, Rect} from '@motion-canvas/2d';
-import {Reference, createRef} from '@motion-canvas/core';
+import {Line, Node, Rect} from '@quantmotion/2d';
+import {Reference, createRef} from '@quantmotion/core';
 import type {ChartBounds, GridConfig, PriceScale, TimeScale} from '../types';
 import {DEFAULT_GRID_CONFIG} from '../types/grid';
 import {calculatePriceLevels} from '../utils/scaling';

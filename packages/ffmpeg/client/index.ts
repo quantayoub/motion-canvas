@@ -1,5 +1,5 @@
-import type {ExporterClass} from '@motion-canvas/core';
-import {makePlugin} from '@motion-canvas/core';
+import type {ExporterClass} from '@quantmotion/core';
+import {makePlugin} from '@quantmotion/core';
 import {FFmpegExporterClient} from './FFmpegExporterClient';
 
 export default makePlugin({

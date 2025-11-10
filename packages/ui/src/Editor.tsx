@@ -1,4 +1,4 @@
-import {PresenterState} from '@motion-canvas/core';
+import {PresenterState} from '@quantmotion/core';
 import {useEffect} from 'preact/hooks';
 import styles from './Editor.module.scss';
 import {Console} from './components/console';

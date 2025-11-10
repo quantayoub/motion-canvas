@@ -7,7 +7,7 @@ import {makePlugin} from './makePlugin';
  * @internal
  */
 export default makePlugin({
-  name: '@motion-canvas/core/default',
+  name: '@quantmotion/core/default',
   exporters() {
     return [ImageExporter];
   },

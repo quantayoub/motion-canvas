@@ -75,7 +75,7 @@ export interface MotionCanvasPluginConfig {
    * - `index` - Receives a list of all projects as its first argument and
    *             creates the initial page for selecting a project.
    *
-   * @defaultValue '\@motion-canvas/ui'
+   * @defaultValue '\@quantmotion/ui'
    */
   editor?: string;
   /**
@@ -99,7 +99,7 @@ export default ({
   project = './src/project.ts',
   output = './output',
   bufferedAssets = /^$/,
-  editor = '@motion-canvas/ui',
+  editor = '@quantmotion/ui',
   proxy,
   buildForEditor,
 }: MotionCanvasPluginConfig = {}): Plugin[] => {
@@ -111,7 +111,7 @@ export default ({
 
   return [
     {
-      name: 'motion-canvas',
+      name: 'quantmotion',
       async configResolved(resolvedConfig) {
         plugins.push(
           ...resolvedConfig.plugins

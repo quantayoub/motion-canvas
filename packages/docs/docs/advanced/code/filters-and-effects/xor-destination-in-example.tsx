@@ -1,5 +1,5 @@
-import {Circle, Img, Node, makeScene2D} from '@motion-canvas/2d';
-import {createRef, easeInOutSine, linear} from '@motion-canvas/core';
+import {Circle, Img, Node, makeScene2D} from '@quantmotion/2d';
+import {createRef, easeInOutSine, linear} from '@quantmotion/core';
 
 /*
  * This example shows you that you can also nest composite operations.

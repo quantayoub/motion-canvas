@@ -1,6 +1,6 @@
 // snippet Cubic Bezier
-import {CubicBezier, makeScene2D} from '@motion-canvas/2d';
-import {createRef} from '@motion-canvas/core';
+import {CubicBezier, makeScene2D} from '@quantmotion/2d';
+import {createRef} from '@quantmotion/core';
 
 export default makeScene2D(function* (view) {
   const bezier = createRef<CubicBezier>();

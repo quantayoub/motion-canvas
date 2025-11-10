@@ -1,1 +1,1 @@
-/// <reference types="@motion-canvas/core/project" />
+/// <reference types="@quantmotion/core/project" />

@@ -1,4 +1,4 @@
-import {makeProject} from '@motion-canvas/core';
+import {makeProject} from '@quantmotion/core';
 
 import scene from './scenes/tweening-visualiser?scene';
 

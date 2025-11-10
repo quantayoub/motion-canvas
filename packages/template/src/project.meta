@@ -23,7 +23,7 @@
     "resolutionScale": 1,
     "colorSpace": "srgb",
     "exporter": {
-      "name": "@motion-canvas/ffmpeg",
+      "name": "@quantmotion/ffmpeg",
       "options": {
         "fastStart": true,
         "includeAudio": true,

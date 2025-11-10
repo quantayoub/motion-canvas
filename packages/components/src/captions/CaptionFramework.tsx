@@ -1,4 +1,4 @@
-import {Rect, Txt} from '@motion-canvas/2d';
+import {Rect, Txt} from '@quantmotion/2d';
 import {
   Vector2,
   all,
@@ -7,7 +7,7 @@ import {
   getLayout,
   spawn,
   waitFor,
-} from '@motion-canvas/core';
+} from '@quantmotion/core';
 
 export interface CaptionConfig {
   speedFactor?: number;

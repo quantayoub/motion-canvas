@@ -5,7 +5,7 @@ import {
   capitalize,
   lazy,
   textLerp,
-} from '@motion-canvas/core';
+} from '@quantmotion/core';
 import {
   computed,
   initial,

@@ -67,7 +67,7 @@ ${issues.map(Issue).join('\n')}
     if (!(type in types)) continue;
 
     const response = await fetch(
-      `https://api.github.com/repos/motion-canvas/motion-canvas/pulls/${pr}`,
+      `https://api.github.com/repos/quantmotion/quantmotion/pulls/${pr}`,
     );
     const prData = await response.json();
     types[type].push({

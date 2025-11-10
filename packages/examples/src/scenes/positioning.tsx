@@ -1,5 +1,5 @@
-import {Circle, Grid, Line, Node, makeScene2D} from '@motion-canvas/2d';
-import {Vector2, all, createRef, createSignal} from '@motion-canvas/core';
+import {Circle, Grid, Line, Node, makeScene2D} from '@quantmotion/2d';
+import {Vector2, all, createRef, createSignal} from '@quantmotion/core';
 
 const RED = '#ff6470';
 const GREEN = '#99C47A';

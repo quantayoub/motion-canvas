@@ -1,4 +1,4 @@
-import {Vector2, Vector2MetaField} from '@motion-canvas/core';
+import {Vector2, Vector2MetaField} from '@quantmotion/core';
 import {useSubscribableValue} from '../../hooks';
 import {NumberInput, Select} from '../controls';
 import {MetaFieldGroup} from './MetaFieldGroup';

@@ -1,4 +1,4 @@
-import {Txt, withDefaults} from '@motion-canvas/2d';
+import {Txt, withDefaults} from '@quantmotion/2d';
 
 export const MyTxt = withDefaults(Txt, {
   fill: 'rgba(255, 255, 255, 0.6)',

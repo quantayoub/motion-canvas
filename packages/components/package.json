@@ -1,12 +1,14 @@
 {
-  "name": "@motion-canvas/components",
-  "version": "0.0.0",
-  "private": true,
+  "name": "@quantmotion/components",
+  "version": "1.0.0",
   "main": "src/index.ts",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
-    "@motion-canvas/core": "*",
-    "@motion-canvas/2d": "*"
+    "@quantmotion/core": "^1.0.0",
+    "@quantmotion/2d": "^1.0.0"
   }
 }
 

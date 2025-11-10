@@ -1,3 +1,4 @@
+import {Signal, useSignal} from '@preact/signals';
 import {
   Player,
   Presenter,
@@ -5,8 +6,7 @@ import {
   ProjectMetadata,
   Renderer,
   SettingsMetadata,
-} from '@motion-canvas/core';
-import {Signal, useSignal} from '@preact/signals';
+} from '@quantmotion/core';
 import {ComponentChildren, createContext} from 'preact';
 import {useContext, useRef} from 'preact/hooks';
 import {useSubscribable} from '../hooks';

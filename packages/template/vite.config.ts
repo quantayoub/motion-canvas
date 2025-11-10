@@ -1,5 +1,5 @@
-import markdown from '@motion-canvas/internal/vite/markdown-literals';
 import preact from '@preact/preset-vite';
+import markdown from '@quantmotion/internal/vite/markdown-literals';
 import path from 'path';
 import {defineConfig} from 'vite';
 import ffmpeg from '../ffmpeg/server';
@@ -9,26 +9,26 @@ export default defineConfig({
   resolve: {
     alias: [
       {
-        find: '@motion-canvas/ui',
-        replacement: '@motion-canvas/ui/src/main.tsx',
+        find: '@quantmotion/ui',
+        replacement: '@quantmotion/ui/src/main.tsx',
       },
       {
-        find: '@motion-canvas/2d/editor',
-        replacement: '@motion-canvas/2d/src/editor',
+        find: '@quantmotion/2d/editor',
+        replacement: '@quantmotion/2d/src/editor',
       },
       {
-        find: '@motion-canvas/ffmpeg/lib/client',
-        replacement: '@motion-canvas/ffmpeg/client',
+        find: '@quantmotion/ffmpeg/lib/client',
+        replacement: '@quantmotion/ffmpeg/client',
       },
       {
-        find: /@motion-canvas\/2d(\/lib)?/,
-        replacement: '@motion-canvas/2d/src/lib',
+        find: /@quantmotion\/2d(\/lib)?/,
+        replacement: '@quantmotion/2d/src/lib',
       },
       {
-        find: '@motion-canvas/components',
+        find: '@quantmotion/components',
         replacement: path.resolve(__dirname, '../components/src'),
       },
-      {find: '@motion-canvas/core', replacement: '@motion-canvas/core/src'},
+      {find: '@quantmotion/core', replacement: '@quantmotion/core/src'},
     ],
   },
   plugins: [

@@ -1,29 +1,30 @@
 {
-  "name": "@motion-canvas/create",
-  "version": "3.17.2",
+  "name": "@quantmotion/create",
+  "version": "1.0.0",
   "description": "Quickly scaffold Motion Canvas projects",
   "main": "index.js",
-  "author": "motion-canvas",
-  "homepage": "https://motioncanvas.io/",
-  "bugs": "https://github.com/motion-canvas/motion-canvas/issues",
+  "author": "quantayoub",
+  "homepage": "https://github.com/quantayoub/quantmotion",
+  "bugs": "https://github.com/quantayoub/quantmotion/issues",
   "license": "MIT",
   "type": "module",
   "bin": {
-    "create-motion-canvas": "index.js"
+    "create-quantmotion": "index.js"
   },
   "files": [
     "index.js",
-    "template-*"
+    "template-2d-js",
+    "template-2d-ts"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/motion-canvas/motion-canvas.git"
+    "url": "git+https://github.com/quantayoub/quantmotion.git"
   },
   "devDependencies": {
-    "@motion-canvas/2d": "^3.17.2",
-    "@motion-canvas/core": "^3.17.2",
-    "@motion-canvas/ui": "^3.17.2",
-    "@motion-canvas/vite-plugin": "^3.17.2"
+    "@quantmotion/2d": "^3.17.2",
+    "@quantmotion/core": "^3.17.2",
+    "@quantmotion/ui": "^3.17.2",
+    "@quantmotion/vite-plugin": "^3.17.2"
   },
   "dependencies": {
     "minimist": "^1.2.8",

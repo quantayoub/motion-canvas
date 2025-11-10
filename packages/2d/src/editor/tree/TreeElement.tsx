@@ -1,4 +1,4 @@
-import {Toggle} from '@motion-canvas/ui';
+import {Toggle} from '@quantmotion/ui';
 import {clsx} from 'clsx';
 import {ComponentChildren, JSX} from 'preact';
 import {Ref} from 'preact/hooks';

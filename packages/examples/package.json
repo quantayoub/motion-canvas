@@ -1,5 +1,5 @@
 {
-  "name": "@motion-canvas/examples",
+  "name": "@quantmotion/examples",
   "private": true,
   "version": "0.0.0",
   "scripts": {
@@ -7,11 +7,11 @@
     "build": "tsc && vite build --base /examples/"
   },
   "dependencies": {
-    "@motion-canvas/2d": "*",
-    "@motion-canvas/core": "*"
+    "@quantmotion/2d": "*",
+    "@quantmotion/core": "*"
   },
   "devDependencies": {
-    "@motion-canvas/ui": "*",
-    "@motion-canvas/vite-plugin": "*"
+    "@quantmotion/ui": "*",
+    "@quantmotion/vite-plugin": "*"
   }
 }

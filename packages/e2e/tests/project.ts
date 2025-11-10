@@ -1,4 +1,4 @@
-import {makeProject} from '@motion-canvas/core';
+import {makeProject} from '@quantmotion/core';
 
 import circle from './scenes/circle?scene';
 import rect from './scenes/rect?scene';

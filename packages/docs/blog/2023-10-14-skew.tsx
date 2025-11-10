@@ -1,5 +1,5 @@
-import {Img, makeScene2D} from '@motion-canvas/2d';
-import {createRef, easeOutElastic} from '@motion-canvas/core';
+import {Img, makeScene2D} from '@quantmotion/2d';
+import {createRef, easeOutElastic} from '@quantmotion/core';
 
 export default makeScene2D(function* (view) {
   const ref = createRef<Img>();

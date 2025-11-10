@@ -1,11 +1,11 @@
-import {Vector2} from '@motion-canvas/core';
+import {Vector2} from '@quantmotion/core';
 import {
   MouseButton,
   OverlayWrapper,
   PluginOverlayConfig,
   useViewportContext,
   useViewportMatrix,
-} from '@motion-canvas/ui';
+} from '@quantmotion/ui';
 import {ComponentChildren} from 'preact';
 import {usePluginState} from './Provider';
 

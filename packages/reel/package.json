@@ -1,9 +1,9 @@
 {
-  "name": "@motion-canvas/reel",
+  "name": "@quantmotion/reel",
   "private": true,
   "version": "0.0.0",
   "description": "Reel project template for Motion Canvas",
-  "author": "motion-canvas",
+  "author": "quantayoub",
   "license": "MIT",
   "main": "src/project.ts",
   "scripts": {
@@ -11,12 +11,12 @@
     "build": "tsc && vite build"
   },
   "dependencies": {
-    "@motion-canvas/core": "*",
-    "@motion-canvas/2d": "*"
+    "@quantmotion/core": "*",
+    "@quantmotion/2d": "*"
   },
   "devDependencies": {
-    "@motion-canvas/ui": "*",
-    "@motion-canvas/vite-plugin": "*"
+    "@quantmotion/ui": "*",
+    "@quantmotion/vite-plugin": "*"
   }
 }
 

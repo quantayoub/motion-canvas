@@ -1,4 +1,4 @@
-import {makeProject} from '@motion-canvas/core';
+import {makeProject} from '@quantmotion/core';
 
 import first from './scenes/transitions-first?scene';
 import second from './scenes/transitions-second?scene';

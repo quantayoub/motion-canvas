@@ -1,4 +1,4 @@
-import {createComputed} from '@motion-canvas/core';
+import {createComputed} from '@quantmotion/core';
 import {addInitializer} from './initializers';
 
 /**

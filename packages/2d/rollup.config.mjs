@@ -1,4 +1,4 @@
-import typescript from '@motion-canvas/internal/rollup/typescript.mjs';
+import typescript from '@quantmotion/internal/rollup/typescript.mjs';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
@@ -14,9 +14,9 @@ export default [
     plugins: [
       {
         resolveId(id) {
-          if (id.startsWith('@motion-canvas/core')) {
+          if (id.startsWith('@quantmotion/core')) {
             return {
-              id: '@motion-canvas/core',
+              id: '@quantmotion/core',
               external: true,
             };
           }

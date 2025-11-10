@@ -1,4 +1,4 @@
-import type {MetaField, ObjectMetaField} from '@motion-canvas/core';
+import type {MetaField, ObjectMetaField} from '@quantmotion/core';
 import {useSubscribableValue} from '../../hooks';
 import {MetaFieldView} from './MetaFieldView';
 

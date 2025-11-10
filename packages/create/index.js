@@ -21,20 +21,40 @@ const MANIFEST = JSON.parse(
 
 const PLUGINS = {
   core: {
-    package: '@motion-canvas/vite-plugin',
+    package: '@quantmotion/vite-plugin',
     variable: 'motionCanvas',
     options: response =>
       response.language === 'js' ? `{project: './src/project.js'}` : '',
   },
   ffmpeg: {
-    package: '@motion-canvas/ffmpeg',
+    package: '@quantmotion/ffmpeg',
     variable: 'ffmpeg',
-    version: '^1.1.0',
+    version: '^3.17.2',
   },
 };
 
 (async () => {
   const options = minimist(process.argv.slice(2));
+
+  // Handle positional argument (project name/path)
+  if (options._ && options._.length > 0) {
+    const projectArg = options._[0];
+    // If it looks like a path, use it as path; otherwise use as name
+    if (
+      projectArg.includes('/') ||
+      projectArg.includes('\\') ||
+      projectArg === '.'
+    ) {
+      options.path = projectArg;
+    } else {
+      options.name = projectArg;
+      // Also set path to the same value if path not explicitly set
+      if (!options.path) {
+        options.path = projectArg;
+      }
+    }
+  }
+
   if (options.plugins !== undefined) {
     if (typeof options.plugins === 'string') {
       options.plugins = options.plugins.split(',');
@@ -74,8 +94,12 @@ const PLUGINS = {
       name: 'path',
       message: 'Project path',
 
-      initial: value => {
-        return path.normalize(value.replace('@', ''));
+      initial: (prev, values) => {
+        // Use the name as default path if path not provided
+        if (values.name && !prev) {
+          return path.normalize(values.name.replace('@', ''));
+        }
+        return path.normalize((prev || '').replace('@', ''));
       },
 
       validate: value => {
@@ -157,6 +181,19 @@ const PLUGINS = {
     '..',
     `template-2d-${response.language}`,
   );
+
+  // Verify template directory exists
+  if (!fs.existsSync(templateDir)) {
+    console.error(
+      kleur.red(
+        `× Template directory not found: ${templateDir}\n` +
+          `  This usually means the package wasn't published correctly.\n` +
+          `  Please ensure template-2d-${response.language} is included in the package.\n`,
+      ),
+    );
+    process.exit(1);
+  }
+
   copyDirectory(templateDir, response.path);
   createConfig(response);
 
@@ -263,7 +300,7 @@ function getPackageManager() {
 function cloneVersions(versions) {
   for (const dependency in versions) {
     if (
-      dependency.startsWith('@motion-canvas') &&
+      dependency.startsWith('@quantmotion') &&
       MANIFEST.devDependencies[dependency]
     ) {
       versions[dependency] = MANIFEST.devDependencies[dependency];

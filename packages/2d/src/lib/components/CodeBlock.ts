@@ -16,7 +16,7 @@ import {
   tween,
   useLogger,
   waitFor,
-} from '@motion-canvas/core';
+} from '@quantmotion/core';
 import {
   Code,
   CodeStyle,

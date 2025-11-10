@@ -3,9 +3,9 @@ import path from 'path';
 
 export function getVersions() {
   return {
-    core: loadVersion('@motion-canvas/core'),
-    two: loadVersion('@motion-canvas/2d'),
-    ui: loadVersion('@motion-canvas/ui'),
+    core: loadVersion('@quantmotion/core'),
+    two: loadVersion('@quantmotion/2d'),
+    ui: loadVersion('@quantmotion/ui'),
     vitePlugin: loadVersion('..'),
   };
 }

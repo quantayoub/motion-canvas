@@ -1,3 +1,4 @@
+import {useSignalEffect} from '@preact/signals';
 import {
   AccountTree,
   emphasize,
@@ -9,8 +10,7 @@ import {
   usePanels,
   useReducedMotion,
   useSurfaceShortcuts,
-} from '@motion-canvas/ui';
-import {useSignalEffect} from '@preact/signals';
+} from '@quantmotion/ui';
 import {useEffect, useRef} from 'preact/hooks';
 import {usePluginState} from './Provider';
 import {SCENE_GRAPH_SHORTCUTS} from './shortcuts';

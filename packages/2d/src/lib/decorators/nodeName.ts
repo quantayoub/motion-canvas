@@ -1,7 +1,7 @@
 /**
  * @internal
  */
-export const NODE_NAME = Symbol.for('@motion-canvas/2d/nodeName');
+export const NODE_NAME = Symbol.for('@quantmotion/2d/nodeName');
 
 /**
  * @internal

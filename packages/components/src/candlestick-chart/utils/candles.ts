@@ -1,4 +1,4 @@
-import {createSignal} from '@motion-canvas/core';
+import {createSignal} from '@quantmotion/core';
 import type {AnimatedOHLC, OHLCData} from '../types/candle';
 
 /**

@@ -1,4 +1,4 @@
-import {MetaField} from '@motion-canvas/core';
+import {MetaField} from '@quantmotion/core';
 import {useSubscribableValue} from '../../hooks';
 import {Group, Label} from '../controls';
 import {AutoField} from '../fields';

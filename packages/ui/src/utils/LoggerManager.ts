@@ -4,7 +4,7 @@ import {
   LogPayload,
   Logger,
   ValueDispatcher,
-} from '@motion-canvas/core';
+} from '@quantmotion/core';
 
 export class LoggerManager {
   public get onInspected() {

@@ -1,5 +1,5 @@
-import {Rect, makeScene2D} from '@motion-canvas/2d';
-import {CaptionFramework} from '@motion-canvas/components';
+import {Rect, makeScene2D} from '@quantmotion/2d';
+import {CaptionFramework} from '@quantmotion/components';
 import {
   all,
   createRef,
@@ -7,7 +7,7 @@ import {
   easeInOutExpo,
   waitFor,
   waitUntil,
-} from '@motion-canvas/core';
+} from '@quantmotion/core';
 
 export default makeScene2D(function* (view) {
   const rect = createRef<Rect>();

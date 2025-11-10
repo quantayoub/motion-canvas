@@ -9,8 +9,8 @@ import {
   endScene,
   startPlayback,
   startScene,
-} from '@motion-canvas/core';
-import {ReadOnlyTimeEvents} from '@motion-canvas/core/lib/scenes/timeEvents';
+} from '@quantmotion/core';
+import {ReadOnlyTimeEvents} from '@quantmotion/core/lib/scenes/timeEvents';
 import {afterAll, beforeAll, beforeEach} from 'vitest';
 import {Scene2D, makeScene2D} from '../../scenes';
 import {View2D} from '../View2D';

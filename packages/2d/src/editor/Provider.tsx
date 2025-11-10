@@ -1,6 +1,3 @@
-import {Node, Scene2D} from '@motion-canvas/2d';
-import {SceneRenderEvent} from '@motion-canvas/core';
-import {useApplication, useCurrentScene} from '@motion-canvas/ui';
 import {
   ReadonlySignal,
   Signal,
@@ -8,6 +5,9 @@ import {
   signal,
   useSignalEffect,
 } from '@preact/signals';
+import {Node, Scene2D} from '@quantmotion/2d';
+import {SceneRenderEvent} from '@quantmotion/core';
+import {useApplication, useCurrentScene} from '@quantmotion/ui';
 import {ComponentChildren, createContext} from 'preact';
 import {useContext, useMemo} from 'preact/hooks';
 import {SignalSet} from './utils';
@@ -25,7 +25,7 @@ export interface PluginState {
 
 const PluginContext = createContext<PluginState | null>(null);
 
-export const NodeInspectorKey = '@motion-canvas/2d/node-inspector';
+export const NodeInspectorKey = '@quantmotion/2d/node-inspector';
 
 export function usePluginState() {
   return useContext(PluginContext)!;

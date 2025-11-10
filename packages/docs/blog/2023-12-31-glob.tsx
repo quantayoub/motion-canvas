@@ -1,4 +1,4 @@
-import motionCanvas from '@motion-canvas/vite-plugin';
+import motionCanvas from '@quantmotion/vite-plugin';
 import {defineConfig} from 'vite';
 
 export default defineConfig({

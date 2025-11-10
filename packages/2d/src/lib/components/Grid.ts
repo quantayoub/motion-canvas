@@ -4,7 +4,7 @@ import {
   SimpleSignal,
   Vector2Signal,
   map,
-} from '@motion-canvas/core';
+} from '@quantmotion/core';
 import {initial, nodeName, signal, vector2Signal} from '../decorators';
 import {Shape, ShapeProps} from './Shape';
 
@@ -28,8 +28,8 @@ export interface GridProps extends ShapeProps {
  *
  * @preview
  * ```tsx editor
- * import {Grid, makeScene2D} from '@motion-canvas/2d';
- * import {all, createRef} from '@motion-canvas/core';
+ * import {Grid, makeScene2D} from '@quantmotion/2d';
+ * import {all, createRef} from '@quantmotion/core';
  *
  * export default makeScene2D(function* (view) {
  *   const grid = createRef<Grid>();

@@ -1,4 +1,4 @@
-import {useScene} from '@motion-canvas/core';
+import {useScene} from '@quantmotion/core';
 import type {Scene2D} from './Scene2D';
 
 export function useScene2D(): Scene2D {

@@ -1,4 +1,4 @@
-import {Node, Rect} from '@motion-canvas/2d';
+import {Node, Rect} from '@quantmotion/2d';
 import {
   SimpleSignal,
   ThreadGenerator,
@@ -7,7 +7,7 @@ import {
   createRef,
   createSignal,
   easeInOutCubic,
-} from '@motion-canvas/core';
+} from '@quantmotion/core';
 import type {
   AnimatedOHLC,
   ChartBounds,

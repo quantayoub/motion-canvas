@@ -6,7 +6,7 @@ import {
   Renderer,
   experimentalLog,
   type Project,
-} from '@motion-canvas/core';
+} from '@quantmotion/core';
 import {ComponentChild, render} from 'preact';
 import {Editor} from './Editor';
 import {ProjectData, ProjectSelection} from './ProjectSelection';
@@ -49,7 +49,7 @@ export function editor(project: Project) {
 
   if (!project.experimentalFeatures) {
     for (const plugin of project.plugins) {
-      if (plugin.name.startsWith('@motion-canvas')) {
+      if (plugin.name.startsWith('@quantmotion')) {
         continue;
       }
 

@@ -1,4 +1,4 @@
-import {Signal} from '@motion-canvas/core';
+import {Signal} from '@quantmotion/core';
 
 /**
  * OHLC (Open, High, Low, Close) data for a single candle

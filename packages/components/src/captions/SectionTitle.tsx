@@ -1,4 +1,4 @@
-import {Rect, Txt} from '@motion-canvas/2d';
+import {Rect, Txt} from '@quantmotion/2d';
 import {
   ThreadGenerator,
   Vector2,
@@ -7,7 +7,7 @@ import {
   easeInCubic,
   easeOutCubic,
   getLayout,
-} from '@motion-canvas/core';
+} from '@quantmotion/core';
 
 export interface SectionTitleConfig {
   // Text content

@@ -1,0 +1,27 @@
+{
+  "name": "create-quantmotion",
+  "version": "1.0.0",
+  "description": "Create a new QuantMotion project",
+  "type": "module",
+  "bin": {
+    "create-quantmotion": "./index.js"
+  },
+  "files": [
+    "index.js"
+  ],
+  "license": "MIT",
+  "author": "quantayoub",
+  "homepage": "https://github.com/quantayoub/quantmotion",
+  "bugs": "https://github.com/quantayoub/quantmotion/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quantayoub/quantmotion.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@quantmotion/create": "^1.0.0"
+  }
+}
+
