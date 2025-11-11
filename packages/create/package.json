@@ -1,6 +1,6 @@
 {
   "name": "@quantmotion/create",
-  "version": "3.17.4",
+  "version": "1.0.0",
   "description": "Quickly scaffold Motion Canvas projects",
   "main": "index.js",
   "author": "quantayoub",
@@ -21,10 +21,10 @@
     "url": "git+https://github.com/quantayoub/quantmotion.git"
   },
   "devDependencies": {
-    "@quantmotion/2d": "^3.17.2",
-    "@quantmotion/core": "^3.17.2",
-    "@quantmotion/ui": "^3.17.2",
-    "@quantmotion/vite-plugin": "^3.17.2"
+    "@quantmotion/2d": "^1.0.0",
+    "@quantmotion/core": "^1.0.0",
+    "@quantmotion/ui": "^1.0.0",
+    "@quantmotion/vite-plugin": "^1.0.0"
   },
   "dependencies": {
     "minimist": "^1.2.8",

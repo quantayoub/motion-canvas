@@ -29,7 +29,7 @@ const PLUGINS = {
   ffmpeg: {
     package: '@quantmotion/ffmpeg',
     variable: 'ffmpeg',
-    version: '^3.17.2',
+    version: '^1.0.0',
   },
 };
 
